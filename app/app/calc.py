@@ -1,9 +1,9 @@
 """
-Calculator function for testing 
+Calculator function for testing
 """
 
-def add(x,y):
-    "add x and y return result."
+def add(x, y):
+    """add x and y return result."""
     return x + y
 
 def subtract(x,y):
