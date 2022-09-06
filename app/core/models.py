@@ -1,7 +1,7 @@
 """
 Database models.
 """
-from django.db import models  # noqa
+from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -9,6 +9,8 @@ from django.contrib.auth.models import (
 )
 
 """Create user model manager """
+
+
 class UserManager(BaseUserManager):
     """Manager for users"""
     def create_user(self, email, password=None, **extra_fields):
@@ -29,7 +31,11 @@ class UserManager(BaseUserManager):
 
         return user
 
-"""use abstract base user class which has authentication but not the field so we can customize"""
+
+"""use abstract base user class which has authentication
+but not the field so we can customize"""
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system """
     email = models.EmailField(max_length=255, unique=True)

@@ -2,7 +2,6 @@
 Tests models
 """
 
-from multiprocessing.sharedctypes import Value
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -11,18 +10,17 @@ class ModelTests(TestCase):
     """Tests for model user"""
 
     """first test if create user email was successful"""
-    def test_create_user_email(self, ):
+    def test_create_user_with_email_successful(self):
         email = "test@example.com"
-        password = "testpassword1"
+        password = "testpass123"
         user = get_user_model().objects.create_user(
-            email = email,
-            password = password,
+            email=email,
+            password=password,
         )
-
-
         self.assertEqual(user.email, email)
-        """We use the check_password method here bc we will have a hash value of the pass stored
-        so this method checks that by seeing of it is the same hash"""
+        """We use the check_password method here bc we will have a
+        hash value of the pass stored so this method checks that by
+        seeing of it is the same hash"""
         self.assertTrue(user.check_password(password))
 
     def test_new_user_email_normalized(self):
@@ -40,7 +38,7 @@ class ModelTests(TestCase):
     def test_new_user_without_email_raises_error(self):
         """Test that creating a user without an email raises a valueError"""
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user('', 'testpass1')
+            get_user_model().objects.create_user('', 'test123')
 
     def test_create_superuser(self):
         """test creating a superuser"""

@@ -26,7 +26,7 @@ class UserAdmin(BaseUserAdmin):
                 )
             }
         ),
-        (_('Important dates to know hi there creep'), {'fields': ('last_login',)}),
+        (_('Important dates to know hi there'), {'fields': ('last_login',)}),
     )
     readonly_fields = ['last_login']
     add_fieldsets = (
