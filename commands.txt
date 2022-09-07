@@ -1,0 +1,46 @@
+
+
+build container: docker-compose build
+remove container: docker-compose down
+
+
+
+to start db and django and create core: docker-compose run --rm app sh -c "python manage.py startapp core"
+
+run test for db to go to avoid race condition with django
+
+docker-compose run --rm app sh -c "python manage.py test"
+tests for flake8 (syntax): docker-compose run --rm app sh -c "flake8"
+
+migrations:
+docker-compose run --rm app sh -c "python manage.py makemigrations"
+- this creates user model migrate for db
+then run to apply migrations created above to project
+docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate"
+but we have inconsistent migrations from applying migrations to the default migration history
+so we need to clear the data from our db
+list volumes: docker volume ls
+tailor recipes db data is the volume that contains the data for our db
+then run: docker volume rm <name of volume> (might need to do docker-compose down to stop the container from running)
+ this should re-create container, wait for db and then apply the migrations
+ you can then run test here
+
+
+ normalize email addresses:
+
+ create supser user for django admin:
+docker-compose up
+winpty docker-compose run --rm app sh -c "python manage.py createsupseruser
+I put in email: admin@example.compose
+password: zadolphe8
+
+summary: creating user model:
+- created a custom user model
+- configured django to use it
+- handle normalizing email addresses
+- handled hashing and encrypting passwords
+
+--------------------------------------
+setting up django admin:
+this is a gui for models
+
